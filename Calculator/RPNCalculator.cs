@@ -20,19 +20,22 @@ namespace Calculator
                 }
                 else
                 {
+                    double helper;
                     switch (item)
                     {
                         case "+":
                             numbers.Push(numbers.Pop() + numbers.Pop());
                             break;
                         case "-":
-                            numbers.Push(numbers.Pop() - numbers.Pop());
+                            helper = numbers.Pop();
+                            numbers.Push(numbers.Pop() - helper);
                             break;
                         case "*":
                             numbers.Push(numbers.Pop() * numbers.Pop());
                             break;
                         case "/":
-                            numbers.Push(1 / (numbers.Pop() / numbers.Pop()));
+                            helper = numbers.Pop();
+                            numbers.Push(numbers.Pop() / helper);
                             break;
                         default:
                             break;
