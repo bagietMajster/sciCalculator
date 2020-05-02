@@ -53,7 +53,7 @@ namespace Calculator
                 { '(', 0 }
             };
             Queue<string> queue = new Queue<string>();
-            Stack<string> stack = new Stack<string>();
+            Stack<string> stack = new Stack<string>();//62*2+(90/3)+5/4
 
             for (int i = 0; i < input.Length; i++)
             {
@@ -62,6 +62,10 @@ namespace Calculator
                 while (Char.IsNumber(input[i]))
                 {
                     numberString += input[i];
+                    if (i == input.Length - 1) 
+                    {
+                        break;
+                    }
                     i++;
                 }
                 if(numberString != String.Empty)
