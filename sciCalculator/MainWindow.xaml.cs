@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calculator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -38,7 +39,7 @@ namespace sciCalculator
 
         private void Sum(object sender, RoutedEventArgs e)
         {
-            //TODO
+            enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
@@ -63,7 +64,7 @@ namespace sciCalculator
                     enterTextBox.Text += "ln(x)";
                     return;
                 case "e":
-                    enterTextBox.Text += "e";//????
+                    enterTextBox.Text += "e";//hmmmm
                     return;
                 default:
                     break;
