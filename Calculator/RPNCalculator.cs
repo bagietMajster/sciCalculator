@@ -8,30 +8,30 @@ namespace Calculator
     {
         public static double Calculate(string input)
         {
-            Char[] translatedInput = TranslateString(input);
+            String[] translatedInput = TranslateString(input);
 
             Stack<double> numbers = new Stack<double>();
 
             foreach (var item in translatedInput)
             {
-                if (Char.IsNumber(item))
+                if (item.All(char.IsNumber))
                 {
-                    numbers.Push(double.Parse(item.ToString()));
+                    numbers.Push(double.Parse(item));
                 }
                 else
                 {
                     switch (item)
                     {
-                        case (char)Operators.Plus:
+                        case "+":
                             numbers.Push(numbers.Pop() + numbers.Pop());
                             break;
-                        case (char)Operators.Minus:
+                        case "-":
                             numbers.Push(numbers.Pop() - numbers.Pop());
                             break;
-                        case (char)Operators.Multiplication:
+                        case "*":
                             numbers.Push(numbers.Pop() * numbers.Pop());
                             break;
-                        case (char)Operators.Division:
+                        case "/":
                             numbers.Push(1 / (numbers.Pop() / numbers.Pop()));
                             break;
                         default:
@@ -41,7 +41,8 @@ namespace Calculator
             }
             return numbers.Pop();
     }
-        public static Char[] TranslateString(string input)
+
+        public static String[] TranslateString(string input)
         {
             Dictionary<char, int> prededence = new Dictionary<char, int>
             {
@@ -51,38 +52,44 @@ namespace Calculator
                 { '-', 4 },
                 { '(', 0 }
             };
+            Queue<string> queue = new Queue<string>();
+            Stack<string> stack = new Stack<string>();
 
-            Queue<char> queue = new Queue<char>();
-            Stack<char> stack = new Stack<char>();
-
-            foreach (char token in input)
+            for (int i = 0; i < input.Length; i++)
             {
-                if ('('.Equals(token))
+                var debug = input[i];
+                var numberString = String.Empty;
+                while (Char.IsNumber(input[i]))
                 {
-                    stack.Push(token);
+                    numberString += input[i];
+                    i++;
+                }
+                if(numberString != String.Empty)
+                {
+                    queue.Enqueue(numberString);
+                    numberString = String.Empty;
+                }
+                if (input[i].Equals('('))
+                {
+                    stack.Push(input[i].ToString());
                     continue;
                 }
-                if (')'.Equals(token))
+                if (input[i].Equals(')')) 
                 {
-                    while (!'('.Equals(stack.Peek()))
+                    while (!"(".Equals(stack.Peek())) //wrzucić to na stacka, czemu to tak się dzieje
                     {
                         queue.Enqueue(stack.Pop());
                     }
                     stack.Pop();
                     continue;
                 }
-                if (prededence.ContainsKey(token))
+                if (prededence.ContainsKey(input[i]))
                 {
-                    while (stack.Any() && prededence.Where(x => x.Key == token).First().Value <= prededence.Where(x => x.Key == stack.Peek()).First().Value)
+                    while (stack.Any() && prededence.Where(x => x.Key == input[i]).First().Value <= prededence.Where(x => x.Key.ToString() == stack.Peek()).First().Value)
                     {
                         queue.Enqueue(stack.Pop());
                     }
-                    stack.Push(token);
-                    continue;
-                }
-                if (Char.IsNumber(token))
-                {
-                    queue.Enqueue(token);
+                    stack.Push(input[i].ToString());
                     continue;
                 }
             }
