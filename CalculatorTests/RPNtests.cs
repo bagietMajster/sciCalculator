@@ -1,5 +1,6 @@
 ﻿using Calculator;
 using NUnit.Framework;
+using System;
 
 namespace CalculatorTests
 {
@@ -54,6 +55,15 @@ namespace CalculatorTests
                 var result = RPNCalculator.Calculate(input).ToString();
 
                 return result;
+            }
+
+            [Test]
+            [TestCase("invalidInput")]
+            [TestCase("((7+3)*(5-2/////6")]
+            [TestCase("1///////2)*(5-2))+(600/10)")]
+            public void InvalidInput_ReturnException(string input)
+            {
+                Assert.That(() => RPNCalculator.Calculate(input).ToString(), Throws.TypeOf<InvalidOperationException>());
             }
         }
     }

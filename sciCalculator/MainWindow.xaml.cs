@@ -39,7 +39,14 @@ namespace sciCalculator
 
         private void Sum(object sender, RoutedEventArgs e)
         {
-            enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
+            try
+            {
+                enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
+            }
+            catch (Exception)
+            {
+                enterTextBox.Text = "Wrong input";
+            }
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
