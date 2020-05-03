@@ -71,8 +71,8 @@ namespace sciCalculator
                 case "ln":
                     enterTextBox.Text += "ln(x)";
                     return;
-                case "sqrt":
-                    enterTextBox.Text += "sqrt(x)";//hmmmm
+                case "SKRRRT":
+                    enterTextBox.Text += "sqrt(x)";
                     return;
                 default:
                     break;

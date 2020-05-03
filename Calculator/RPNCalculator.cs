@@ -38,6 +38,10 @@ namespace Calculator
                             helper = numbers.Pop();
                             numbers.Push(numbers.Pop() / helper);
                             break;
+                        case "^":
+                            helper = numbers.Pop();
+                            numbers.Push(Math.Pow(numbers.Pop(), helper));
+                            break;
                         default:
                             break;
                     }
@@ -50,6 +54,7 @@ namespace Calculator
         {
             Dictionary<char, int> prededence = new Dictionary<char, int>
             {
+                { '^', 6 },
                 { '/', 5 },
                 { '*', 5 },
                 { '+', 4 },
