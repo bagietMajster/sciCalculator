@@ -42,6 +42,15 @@ namespace Calculator
                             helper = numbers.Pop();
                             numbers.Push(Math.Pow(numbers.Pop(), helper));
                             break;
+                        case "!":
+                            helper = numbers.Pop();
+                            double result = 1;
+                            for (int i = 1; i <= helper; i++)
+                            {
+                                result = result * i;
+                            }
+                            numbers.Push(result);
+                            break;
                         default:
                             break;
                     }
@@ -54,6 +63,7 @@ namespace Calculator
         {
             Dictionary<char, int> prededence = new Dictionary<char, int>
             {
+                { '!', 7 },
                 { '^', 6 },
                 { '/', 5 },
                 { '*', 5 },
