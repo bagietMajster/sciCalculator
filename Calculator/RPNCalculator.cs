@@ -11,6 +11,7 @@ namespace Calculator
         {
             String[] translatedInput = TranslateString(input);
             Stack<double> numbers = new Stack<double>();
+
             Regex numberRegex = new Regex(@"^-?[0-9]+(?:\,[0-9]*)?$");
             foreach (var item in translatedInput)
             {
@@ -51,6 +52,9 @@ namespace Calculator
                             }
                             numbers.Push(result);
                             break;
+                        case "l":
+                            numbers.Push(Math.Log(numbers.Pop()));
+                            break;
                         default:
                             break;
                     }
@@ -63,6 +67,7 @@ namespace Calculator
         {
             Dictionary<char, int> prededence = new Dictionary<char, int>
             {
+                { 'l', 7 },
                 { '!', 7 },
                 { '^', 6 },
                 { '/', 5 },

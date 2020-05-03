@@ -69,7 +69,7 @@ namespace sciCalculator
                     enterTextBox.Text += "log(x)(y)";
                     return;
                 case "ln":
-                    enterTextBox.Text += "ln(x)";
+                    enterTextBox.Text += "lx";
                     return;
                 case "SKRRRT":
                     enterTextBox.Text += "sqrt(x)";
