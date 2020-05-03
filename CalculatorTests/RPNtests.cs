@@ -17,7 +17,7 @@ namespace CalculatorTests
             [TestCase("π+3", ExpectedResult = "6,141592653589793")]
             [TestCase("3^6", ExpectedResult = "729")]
             [TestCase("!5", ExpectedResult = "120")]
-            [TestCase("l10", ExpectedResult = "2,302585092994046")]
+            [TestCase("ln(10)", ExpectedResult = "2,302585092994046")]
             public string BasicOperations_ReturnCorrectResult(string input)
             {
                 var result = RPNCalculator.Calculate(input).ToString();
@@ -56,7 +56,7 @@ namespace CalculatorTests
             [TestCase("π+15-12", ExpectedResult = "6,141592653589793")]
             [TestCase("17+13*(2+2)^4", ExpectedResult = "3345")]
             [TestCase("!5+80*10", ExpectedResult = "920")]
-            [TestCase("l10+200-100", ExpectedResult = "102,30258509299404")]
+            [TestCase("ln(10)+200-100", ExpectedResult = "102,30258509299404")]
             public string AllOperationsWithMultipleBrackets_ReturnCorrectResult(string input)
             {
                 var result = RPNCalculator.Calculate(input).ToString();

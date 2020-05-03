@@ -52,7 +52,7 @@ namespace Calculator
                             }
                             numbers.Push(result);
                             break;
-                        case "l":
+                        case "ln":
                             numbers.Push(Math.Log(numbers.Pop()));
                             break;
                         default:
@@ -65,16 +65,16 @@ namespace Calculator
 
         public static String[] TranslateString(string input)
         {
-            Dictionary<char, int> prededence = new Dictionary<char, int>
+            Dictionary<string, int> prededence = new Dictionary<string, int>
             {
-                { 'l', 7 },
-                { '!', 7 },
-                { '^', 6 },
-                { '/', 5 },
-                { '*', 5 },
-                { '+', 4 },
-                { '-', 4 },
-                { '(', 0 }
+                { "ln", 7 },
+                { "!", 7 },
+                { "^", 6 },
+                { "/", 5 },
+                { "*", 5 },
+                { "+", 4 },
+                { "-", 4 },
+                { "(", 0 }
             };
             Queue<string> queue = new Queue<string>();
             Stack<string> stack = new Stack<string>();//62*2+(90/3)+5/4
@@ -114,13 +114,13 @@ namespace Calculator
                     stack.Pop();
                     continue;
                 }
-                if (prededence.ContainsKey(input[i]))
+                if (prededence.ContainsKey(input[i].ToString()) || ((i < input.Length-1) &&prededence.ContainsKey(input[i].ToString() + input[i+1].ToString())))
                 {
-                    while (stack.Any() && prededence.Where(x => x.Key == input[i]).First().Value <= prededence.Where(x => x.Key.ToString() == stack.Peek()).First().Value)
+                    while (stack.Any() && prededence.Where(x => x.Key == input[i].ToString()).First().Value <= prededence.Where(x => x.Key.ToString() == stack.Peek()).First().Value)
                     {
                         queue.Enqueue(stack.Pop());
                     }
-                    stack.Push(input[i].ToString());
+                    stack.Push(prededence.ContainsKey(input[i].ToString() + input[i + 1].ToString()) ? input[i].ToString() + input[i + 1].ToString() : input[i].ToString());
                     continue;
                 }
             }
