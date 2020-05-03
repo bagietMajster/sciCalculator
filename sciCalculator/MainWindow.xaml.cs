@@ -43,9 +43,10 @@ namespace sciCalculator
             {
                 enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
             }
-            catch (Exception)
+            catch (Exception ee)
             {
                 enterTextBox.Text = "Wrong input";
+                throw new Exception("whoopsi:" + ee);
             }
         }
 
@@ -70,8 +71,8 @@ namespace sciCalculator
                 case "ln":
                     enterTextBox.Text += "ln(x)";
                     return;
-                case "e":
-                    enterTextBox.Text += "e";//hmmmm
+                case "sqrt":
+                    enterTextBox.Text += "sqrt(x)";//hmmmm
                     return;
                 default:
                     break;

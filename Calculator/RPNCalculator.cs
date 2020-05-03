@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Calculator
 {
@@ -9,14 +10,14 @@ namespace Calculator
         public static double Calculate(string input)
         {
             String[] translatedInput = TranslateString(input);
-
             Stack<double> numbers = new Stack<double>();
-
+            Regex numberRegex = new Regex(@"^-?[0-9]+(?:\,[0-9]*)?$");
             foreach (var item in translatedInput)
             {
-                if (item.All(char.IsNumber))
+                if (numberRegex.IsMatch(item))
                 {
                     numbers.Push(double.Parse(item));
+                    continue;
                 }
                 else
                 {
@@ -58,11 +59,14 @@ namespace Calculator
             Queue<string> queue = new Queue<string>();
             Stack<string> stack = new Stack<string>();//62*2+(90/3)+5/4
 
+            //const
+            input = input.Replace("π", Math.PI.ToString());
+
             for (int i = 0; i < input.Length; i++)
             {
                 var debug = input[i];
                 var numberString = String.Empty;
-                while (Char.IsNumber(input[i]))
+                while (Char.IsNumber(input[i]) || input[i] == 'π' || input[i] == ',')
                 {
                     numberString += input[i];
                     if (i == input.Length - 1) 
