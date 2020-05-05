@@ -55,6 +55,10 @@ namespace Calculator
                         case "ln":
                             numbers.Push(Math.Log(numbers.Pop()));
                             break;
+                        case "log":
+                            helper = numbers.Pop();
+                            numbers.Push(Math.Log(helper,numbers.Pop()));
+                            break;
                         default:
                             break;
                     }
@@ -67,6 +71,7 @@ namespace Calculator
         {
             Dictionary<string, int> prededence = new Dictionary<string, int>
             {
+                { "log", 7 },
                 { "ln", 7 },
                 { "!", 7 },
                 { "^", 6 },
@@ -78,6 +83,7 @@ namespace Calculator
             };
             Queue<string> queue = new Queue<string>();
             Stack<string> stack = new Stack<string>();//62*2+(90/3)+5/4
+            string result = String.Empty;
 
             //const
             input = input.Replace("π", Math.PI.ToString());
@@ -107,21 +113,34 @@ namespace Calculator
                 }
                 if (input[i].Equals(')')) 
                 {
-                    while (!"(".Equals(stack.Peek())) //wrzucić to na stacka, czemu to tak się dzieje
+                    while (!"(".Equals(stack.Peek()))
                     {
                         queue.Enqueue(stack.Pop());
                     }
                     stack.Pop();
                     continue;
                 }
-                if (prededence.ContainsKey(input[i].ToString()) || ((i < input.Length-1) &&prededence.ContainsKey(input[i].ToString() + input[i+1].ToString())))
+                result = String.Empty;
+                if (prededence.Keys.Any(x => x.StartsWith(input[i])))
                 {
-                    while (stack.Any() && prededence.Where(x => x.Key == input[i].ToString()).First().Value <= prededence.Where(x => x.Key.ToString() == stack.Peek()).First().Value)
+                    do
                     {
-                        queue.Enqueue(stack.Pop());
-                    }
-                    stack.Push(prededence.ContainsKey(input[i].ToString() + input[i + 1].ToString()) ? input[i].ToString() + input[i + 1].ToString() : input[i].ToString());
-                    continue;
+                        result += input[i];
+                        if (i == input.Length - 1)
+                        {
+                            break;
+                        }
+                        if (prededence.ContainsKey(result))
+                        {
+                            while (stack.Any() && prededence.Where(x => x.Key == result).First().Value <= prededence.Where(x => x.Key.ToString() == stack.Peek()).First().Value)
+                            {
+                                queue.Enqueue(stack.Pop());
+                            }
+                            stack.Push(result);
+                            break;
+                        }
+                        i++;
+                    } while (i < input.Length);
                 }
             }
             while (stack.Any())

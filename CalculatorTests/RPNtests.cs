@@ -18,6 +18,7 @@ namespace CalculatorTests
             [TestCase("3^6", ExpectedResult = "729")]
             [TestCase("!5", ExpectedResult = "120")]
             [TestCase("ln(10)", ExpectedResult = "2,302585092994046")]
+            [TestCase("log(10)(100)", ExpectedResult = "2")]
             public string BasicOperations_ReturnCorrectResult(string input)
             {
                 var result = RPNCalculator.Calculate(input).ToString();
@@ -57,6 +58,7 @@ namespace CalculatorTests
             [TestCase("17+13*(2+2)^4", ExpectedResult = "3345")]
             [TestCase("!5+80*10", ExpectedResult = "920")]
             [TestCase("ln(10)+200-100", ExpectedResult = "102,30258509299404")]
+            [TestCase("20+log(10)(100)-5", ExpectedResult = "17")]
             public string AllOperationsWithMultipleBrackets_ReturnCorrectResult(string input)
             {
                 var result = RPNCalculator.Calculate(input).ToString();
@@ -65,7 +67,7 @@ namespace CalculatorTests
             }
 
             [Test]
-            [TestCase("invalidInput")]
+            [TestCase("ile dałbym żeby zapomnieć cie te wszystki chwile")]
             [TestCase("((7+3)*(5-2/////6")]
             [TestCase("1///////2)*(5-2))+(600/10)")]
             public void InvalidInput_ReturnException(string input)

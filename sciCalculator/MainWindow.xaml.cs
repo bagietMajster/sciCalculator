@@ -65,7 +65,7 @@ namespace sciCalculator
                 case "Factorial":
                     enterTextBox.Text += "(!x)";
                     return;
-                case "log":
+                case "lg":
                     enterTextBox.Text += "log(x)(y)";
                     return;
                 case "ln":
