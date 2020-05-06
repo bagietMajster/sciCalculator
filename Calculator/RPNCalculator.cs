@@ -57,7 +57,21 @@ namespace Calculator
                             break;
                         case "log":
                             helper = numbers.Pop();
-                            numbers.Push(Math.Log(helper,numbers.Pop()));
+                            numbers.Push(Math.Log(helper, numbers.Pop()));
+                            break;
+                        case "%":
+                            helper = numbers.Pop();
+                            numbers.Push(numbers.Pop()%helper);
+                            break;
+                        case "cos":
+                        case "ctg":
+                        case "tg":
+                        case "sin":
+                            helper = numbers.Pop();
+                            numbers.Push(numbers.Pop() / helper);
+                            break;
+                        case "sqrt":
+                            numbers.Push(Math.Sqrt(numbers.Pop()));
                             break;
                         default:
                             break;
@@ -71,8 +85,14 @@ namespace Calculator
         {
             Dictionary<string, int> prededence = new Dictionary<string, int>
             {
+                { "sqrt", 7 },
                 { "log", 7 },
+                { "sin", 7 },
+                { "cos", 7 },
+                { "ctg", 7 },
+                { "tg", 7 },
                 { "ln", 7 },
+                { "%", 7 },
                 { "!", 7 },
                 { "^", 6 },
                 { "/", 5 },
@@ -82,11 +102,14 @@ namespace Calculator
                 { "(", 0 }
             };
             Queue<string> queue = new Queue<string>();
-            Stack<string> stack = new Stack<string>();//62*2+(90/3)+5/4
+            Stack<string> stack = new Stack<string>();
             string result = String.Empty;
 
-            //const
+            //consts
             input = input.Replace("π", Math.PI.ToString());
+            input = input.Replace("e", Math.E.ToString());
+            input = input.Replace("T", "6,28");
+            input = input.Replace("γ", "0,5772156649");
 
             for (int i = 0; i < input.Length; i++)
             {

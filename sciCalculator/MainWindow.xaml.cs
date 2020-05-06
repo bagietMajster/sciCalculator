@@ -21,6 +21,7 @@ namespace sciCalculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        string history = String.Empty;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace sciCalculator
         {
             try
             {
+                history = enterTextBox.Text;
                 enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
             }
             catch (Exception ee)
@@ -59,26 +61,49 @@ namespace sciCalculator
                 case "π":
                     enterTextBox.Text += "π";
                     return;
+                case "γ":
+                    enterTextBox.Text += "γ";
+                    return;
                 case "x^y":
                     enterTextBox.Text += "(x^y)";
                     return;
                 case "Factorial":
                     enterTextBox.Text += "(!x)";
                     return;
-                case "lg":
+                case "log":
                     enterTextBox.Text += "log(x)(y)";
                     return;
                 case "ln":
-                    enterTextBox.Text += "lx";
+                    enterTextBox.Text += "ln(x)";
                     return;
                 case "sqrt":
                     enterTextBox.Text += "sqrt(x)";
+                    return;
+                case "mod":
+                    enterTextBox.Text += "%";
+                    return;
+                case "sinα=a/c":
+                    enterTextBox.Text += "sin(a)(c)";
+                    return;
+                case "cosα=b/c":
+                    enterTextBox.Text += "cos(b)(c)";
+                    return;
+                case "tgα=a/b":
+                    enterTextBox.Text += "tg(a)(b)";
+                    return;
+                case "ctgα=b/a":
+                    enterTextBox.Text += "ctg(b)(a)";
                     return;
                 default:
                     break;
             }
 
             enterTextBox.Text += buttonValue.ToString();
+        }
+
+        private void Revert(object sender, RoutedEventArgs e)
+        {
+            enterTextBox.Text = history;
         }
     }
 }
