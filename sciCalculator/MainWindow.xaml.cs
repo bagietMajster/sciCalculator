@@ -34,8 +34,15 @@ namespace sciCalculator
 
         private void Sum(object sender, RoutedEventArgs e)
         {
+            try
+            {
                 history = enterTextBox.Text;
                 enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
+            }
+            catch (Exception)
+            {
+                enterTextBox.Text = "Wrong input";
+            }
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)

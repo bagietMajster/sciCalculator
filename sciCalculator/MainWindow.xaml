@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:sciCalculator"
         mc:Ignorable="d"
         FontSize="25"
-        Title="Kalkulator" Height="520" Width="520">
+        Title="Calculator" Height="520" Width="520">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />

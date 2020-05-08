@@ -89,7 +89,7 @@ namespace Calculator
             return numbers.Pop();
     }
 
-        public static String[] TranslateString(string input)
+        private static String[] TranslateString(string input)
         {
             Dictionary<string, int> prededence = new Dictionary<string, int>
             {
