@@ -73,6 +73,14 @@ namespace Calculator
                         case "sqrt":
                             numbers.Push(Math.Sqrt(numbers.Pop()));
                             break;
+                        case "abs":
+                            helper = numbers.Pop();
+                            if(helper < 0 )
+                            {
+                                helper *= -1;
+                            }
+                            numbers.Push(helper);
+                            break;
                         default:
                             break;
                     }
@@ -90,6 +98,7 @@ namespace Calculator
                 { "sin", 7 },
                 { "cos", 7 },
                 { "ctg", 7 },
+                { "abs", 7 },
                 { "tg", 7 },
                 { "ln", 7 },
                 { "%", 7 },
@@ -115,7 +124,12 @@ namespace Calculator
             {
                 var debug = input[i];
                 var numberString = String.Empty;
-                while (Char.IsNumber(input[i]) || input[i] == 'π' || input[i] == ',')
+                if(input[i] == '-' && (i == 0 ? true : prededence.ContainsKey(input[i - 1].ToString())))
+                {
+                    numberString += '-';
+                    i++;
+                }
+                while (Char.IsNumber(input[i]) || input[i] == ',')
                 {
                     numberString += input[i];
                     if (i == input.Length - 1) 
