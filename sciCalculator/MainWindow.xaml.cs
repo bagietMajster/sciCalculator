@@ -27,12 +27,6 @@ namespace sciCalculator
             InitializeComponent();
         }
 
-        private void OnSimpleCharacterClick(object sender, RoutedEventArgs e)
-        {
-            var buttonValue = ((Button)sender).Content;
-            enterTextBox.Text += buttonValue.ToString();
-        }
-
         private void Clean(object sender, RoutedEventArgs e)
         {
             enterTextBox.Text = String.Empty;
@@ -40,16 +34,8 @@ namespace sciCalculator
 
         private void Sum(object sender, RoutedEventArgs e)
         {
-            try
-            {
                 history = enterTextBox.Text;
                 enterTextBox.Text = RPNCalculator.Calculate(enterTextBox.Text).ToString();
-            }
-            catch (Exception ee)
-            {
-                enterTextBox.Text = "Wrong input";
-                throw new Exception("whoopsi:" + ee);
-            }
         }
 
         private void OnButtonClick(object sender, RoutedEventArgs e)
@@ -60,45 +46,47 @@ namespace sciCalculator
             {
                 case "π":
                     enterTextBox.Text += "π";
-                    return;
+                    break;
                 case "γ":
                     enterTextBox.Text += "γ";
-                    return;
+                    break;
                 case "x^y":
                     enterTextBox.Text += "(x^y)";
-                    return;
+                    break;
                 case "Factorial":
                     enterTextBox.Text += "(!x)";
-                    return;
+                    break;
                 case "log":
                     enterTextBox.Text += "log(x)(y)";
-                    return;
+                    break;
                 case "ln":
                     enterTextBox.Text += "ln(x)";
-                    return;
+                    break;
                 case "sqrt":
                     enterTextBox.Text += "sqrt(x)";
-                    return;
+                    break;
+                case "|x|":
+                    enterTextBox.Text += "abs(x)";
+                    break;
                 case "mod":
                     enterTextBox.Text += "%";
-                    return;
+                    break;
                 case "sinα=a/c":
                     enterTextBox.Text += "sin(a)(c)";
-                    return;
+                    break;
                 case "cosα=b/c":
                     enterTextBox.Text += "cos(b)(c)";
-                    return;
+                    break;
                 case "tgα=a/b":
                     enterTextBox.Text += "tg(a)(b)";
-                    return;
+                    break;
                 case "ctgα=b/a":
                     enterTextBox.Text += "ctg(b)(a)";
-                    return;
+                    break;
                 default:
+                    enterTextBox.Text += buttonValue.ToString();
                     break;
             }
-
-            enterTextBox.Text += buttonValue.ToString();
         }
 
         private void Revert(object sender, RoutedEventArgs e)
